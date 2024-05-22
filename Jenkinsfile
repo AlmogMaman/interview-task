@@ -2,6 +2,18 @@
  def projectKey = 'DEMO'
 
 node('jira_agent') {
+    triggers {
+         onMerge(
+             genericVariables: [
+                 [key: 'ref', value: '$.ref']
+             ],
+             causeString: 'Triggered on $ref',
+             printContributedVariables: true,
+             printPostContent: true,
+             regexpFilterText: '$ref',
+             regexpFilterExpression: 'refs/heads/main'
+         )
+    }
     stage('Login to Jira') {
         withCredentials([usernamePassword(credentialsId: 'jira_cred', usernameVariable: 'JIRA_USERNAME', passwordVariable: 'JIRA_PASSWORD')]) {
             def response = sh(script: """
