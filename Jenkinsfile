@@ -1,18 +1,18 @@
 def issueKey = ''
 def projectKey = 'DEMO'
 
-// triggers {
-//         GenericTrigger(
-//             genericVariables: [
-//                 [key: 'ref', value: '$.ref']
-//             ],
-//             causeString: 'Triggered on $ref',
-//             printContributedVariables: true,
-//             printPostContent: true,
-//             regexpFilterText: '$ref',
-//             regexpFilterExpression: 'refs/heads/main'
-//         )
-// }
+triggers {
+        GenericTrigger(
+            genericVariables: [
+                [key: 'ref', value: '$.ref']
+            ],
+            causeString: 'Triggered on $ref',
+            printContributedVariables: true,
+            printPostContent: true,
+            regexpFilterText: '$ref',
+            regexpFilterExpression: 'refs/heads/main'
+        )
+}
 node('jira_agent') {
     stage('Login to Jira') {
         withCredentials([usernamePassword(credentialsId: 'jira_cred', usernameVariable: 'JIRA_USERNAME', passwordVariable: 'JIRA_PASSWORD')]) {
