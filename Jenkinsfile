@@ -1,8 +1,7 @@
 def issueKey = ''
 def projectKey = 'DEMO'
 
-node('jira_agent') {
-    triggers {
+triggers {
         GenericTrigger(
             genericVariables: [
                 [key: 'ref', value: '$.ref']
@@ -13,7 +12,8 @@ node('jira_agent') {
             regexpFilterText: '$ref',
             regexpFilterExpression: 'refs/heads/main'
         )
-    }
+}
+node('jira_agent') {
     stage('Login to Jira') {
         withCredentials([usernamePassword(credentialsId: 'jira_cred', usernameVariable: 'JIRA_USERNAME', passwordVariable: 'JIRA_PASSWORD')]) {
             def response = sh(script: """
@@ -75,4 +75,3 @@ node('jira_agent') {
         }
     }
 }
-
