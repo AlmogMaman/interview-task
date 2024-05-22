@@ -2,16 +2,8 @@ def issueKey = ''
 def projectKey = 'DEMO'
 
 triggers {
-        GenericTrigger(
-            genericVariables: [
-                [key: 'ref', value: '$.ref']
-            ],
-            causeString: 'Triggered on $ref',
-            printContributedVariables: true,
-            printPostContent: true,
-            regexpFilterText: '$ref',
-            regexpFilterExpression: 'refs/heads/main'
-        )
+        // Trigger the pipeline when changes are pushed to the main branch
+        scm('refs/heads/main')
 }
 node('jira_agent') {
     stage('Login to Jira') {
