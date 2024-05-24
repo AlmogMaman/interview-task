@@ -1,10 +1,5 @@
 def issueKey = ''
 def projectKey = 'DEMO'
-
-triggers {
-        // Trigger the pipeline when changes are pushed to the main branch
-        scm('refs/heads/main')
-}
 node('jira_agent') {
     stage('Login to Jira') {
         withCredentials([usernamePassword(credentialsId: 'jira_cred', usernameVariable: 'JIRA_USERNAME', passwordVariable: 'JIRA_PASSWORD')]) {
